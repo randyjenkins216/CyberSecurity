@@ -1,0 +1,47 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+
+.NOTES
+    Author          : Randy Jenkins
+    LinkedIn        : linkedin.com/in/randy-jenkins-886a22103/
+    GitHub          : https://github.com/randyjenkins216
+    Date Created    : 2025-02-07
+    Last Modified   : 2025-02-07
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000070
+
+.TESTED ON
+    Date(s) Tested  : 2025-02-07
+    Tested By       : Randy Jenkins
+    Systems Tested  : rox-threatlab-1
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
+#>
+
+# YOUR CODE GOES HERE
+$registryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$registryName = "InactivityTimeoutSecs"
+$registryValue = 900  # Default value (0x00000384 in hex)
+
+# Check if the registry path exists, if not, create it
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force
+}
+
+# Get the current value if it exists
+$currentValue = Get-ItemProperty -Path $registryPath -Name $registryName -ErrorAction SilentlyContinue
+
+# Only update if the current value is greater than 900 or is 0 (disabled)
+if ($null -eq $currentValue -or $currentValue.$registryName -gt $registryValue -or $currentValue.$registryName -eq 0) {
+    Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue -Type DWord
+    Write-Host "Registry key updated successfully to $registryValue."
+} else {
+    Write-Host "Registry key already set to an acceptable value ($($currentValue.$registryName))."
+}
