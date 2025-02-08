@@ -1,0 +1,41 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+
+.NOTES
+    Author          : Randy Jenkins
+    LinkedIn        : linkedin.com/in/randy-jenkins-886a22103/
+    GitHub          : https://github.com/randyjenkins216
+    Date Created    : 2025-02-8
+    Last Modified   : 2025-02-8
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000360
+
+.TESTED ON
+    Date(s) Tested  : 2025-02-08
+    Tested By       : Randy Jenkins
+    Systems Tested  : rox-threatlab-1
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
+#>
+
+# YOUR CODE GOES HERE
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client"
+$registryName = "AllowDigest"
+$registryValue = 0  # REG_DWORD value
+
+# Check if the registry path exists, if not, create it
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force
+}
+
+# Set the registry key as REG_DWORD
+Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue -Type DWord
+
+Write-Host "Registry key updated successfully! AllowDigest set to $registryValue."
