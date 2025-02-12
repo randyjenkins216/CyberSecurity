@@ -35,7 +35,7 @@ if (-not (Test-Path $registryPath)) {
 # Get the current value if it exists
 $currentValue = Get-ItemProperty -Path $registryPath -Name $registryName -ErrorAction SilentlyContinue
 
-# Only update if the current value is greater than 900 or is 0 (disabled)
+# Only update if the current value is greater than 900 or is 0
 if ($null -eq $currentValue -or $currentValue.$registryName -gt $registryValue -or $currentValue.$registryName -eq 0) {
     Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue -Type DWord
     Write-Host "Registry key updated successfully to $registryValue."
