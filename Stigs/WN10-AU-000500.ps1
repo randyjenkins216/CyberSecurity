@@ -14,16 +14,14 @@
     STIG-ID         : WN10-AU-000500
 
 .TESTED ON
-    Date(s) Tested  : 
-    Tested By       : 
-    Systems Tested  : 
+    Date(s) Tested  : 2025-02-05
+    Tested By       : Randy Jenkins
+    Systems Tested  : rox-threatlab-1
     PowerShell Ver. : 
 
 .USAGE
-    Put any usage instructions here.
-    Example syntax:
-    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
-#>
+ 
+
 
 # YOUR CODE GOES HERE
 
