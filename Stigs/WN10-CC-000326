@@ -19,11 +19,7 @@
     Systems Tested  : rox-threatlab-1
     PowerShell Ver. : 
 
-.USAGE
-    Put any usage instructions here.
-    Example syntax:
-    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
-#>
+
 
 # YOUR CODE GOES HERE
 $registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
@@ -37,5 +33,3 @@ if (-not (Test-Path $registryPath)) {
 
 # Set the registry key as REG_DWORD
 Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue -Type DWord
-
-Write-Host "Registry key updated successfully!"
